@@ -1,4 +1,4 @@
-const cells = [
+const initialBoard = [
     {id: 0, occupied: false, value: null},
     {id: 1, occupied: false, value: null},
     {id: 2, occupied: false, value: null},
@@ -10,4 +10,4 @@ const cells = [
     {id: 8, occupied: false, value: null}
 ]
 
-export default cells;
+export default initialBoard;

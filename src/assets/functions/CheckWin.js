@@ -1,6 +1,5 @@
-import cells from "../data/cells"
 
-export default function CheckWin() {
+export function CheckWin(cells) {
 
     //Winning Conditions
     const winConditions = [
@@ -37,4 +36,13 @@ export default function CheckWin() {
     })
     return win
 
+}
+
+export function CheckDraw(cells) {
+    
+    if (cells.every(cell => cell.occupied === true) && !CheckWin(cells).res) {
+        return true
+    }
+
+    return false
 }

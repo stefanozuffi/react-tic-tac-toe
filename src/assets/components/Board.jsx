@@ -1,44 +1,32 @@
 import Cell from "./Cell";
-import cells from "../data/cells";
-import CheckWin from "../functions/CheckWin";
-import CleanBoard from "../functions/CleanBoard";
+import initialBoard from "../data/cells";
+import { CheckWin,CheckDraw } from "../functions/CheckWin";
 import { useState } from "react";
 import ResetUI from "./ResetUI";
 
 export default function Board() {
     const [activePlayer, setActive] = useState(0)
+    const [cells, setCells] = useState(initialBoard)
 
     //HandleClick of cells
     function handleClick(e) {
-        const thisCell = cells.find(cell => cell.id == e.currentTarget.getAttribute('data-id'))
-        console.log(`Clicked cell ${thisCell.id}`)
+        const thisCellID = parseInt(e.currentTarget.getAttribute('data-id'))
+        const thisCell = cells.find(cell => cell.id === thisCellID)
+        console.log(`Clicked cell ${thisCellID}`)
 
         if (!thisCell.occupied) {
+            setCells(prevCells => prevCells.map(cell => 
+                cell.id === thisCellID ? {...cell, occupied: true, value: activePlayer} : cell
+                )
             
-            thisCell.value = activePlayer
-            thisCell.occupied = true
+            )
 
             setActive(1 - activePlayer)
-
-        } else {
-            console.log('Occupied Cell')
         }
-
-        // Winning Condition 
-        // if (CheckWin().res) {
-
-        //     if (CheckWin().player == 1) {
-        //         alert('X WON!')
-        //     }
-        //     alert('O WON!')
-        // }
     }
 
-    //HandleClick of Restart
-    function handleRestart() {
-        CleanBoard()
-        setActive(1 - activePlayer)
-    }
+    const gameResult = CheckWin(cells)
+    const draw = CheckDraw(cells)
 
     return(
         <div className="board container">
@@ -47,7 +35,7 @@ export default function Board() {
                     <Cell id={cell.id} handleF={handleClick} value={cell.value} key={cell.id}/>
                 )
             }
-            <ResetUI checkwin={CheckWin().res} winner={CheckWin().player} handleR={handleRestart}/>
+            <ResetUI checkwin={gameResult.res} draw={draw} winner={gameResult.player} handleR={() => setCells(initialBoard)}/>
         </div>
     )
 }
