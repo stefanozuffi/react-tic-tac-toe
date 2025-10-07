@@ -1,5 +1,5 @@
 body {
-  background-color: pink;
+  background-color: rgb(181, 46, 69);
 }
 
 .container {
@@ -12,6 +12,12 @@ header {
   text-align: center;
   margin: 0 auto;
   padding-top: 5%;
+
+  h1 {
+    color: lightblue;
+    font-size: 50px;
+    margin-bottom: 10px;
+  }
 }
 
 /* Board */
@@ -44,4 +50,46 @@ header {
   background-color: tomato;
   color: white;
   
+}
+
+/* Reset */
+.reset-pop-up {
+  width: 40%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: lightblue;
+  border: 2px solid black;
+  padding: 20px;
+  text-align: center;
+  z-index: 10;
+
+  h2 {
+    margin-bottom: 20px;
+    font-size: 30px;
+    color: darkblue;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: tomato;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: darkred;
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  &.show {
+    display: block;
+  }
 }
